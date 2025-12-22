@@ -1,58 +1,38 @@
-# Сервіс опитувань (NestJS) – Маршрути
-
-## 1. AuthModule (Аутентифікація)
-| Метод | Шлях | Опис |
-|-------|------|-----|
-| POST  | /auth/local/signup | Реєстрація користувача |
-| POST  | /auth/local/signin | Логін користувача |
-| POST  | /auth/refresh | Оновлення JWT токена |
-| GET   | /auth/logout | Вийти |
-| GET   | /auth/profile | Отримати профіль користувача |
+# Survey Service API
 
 ---
 
-## 2. UsersModule (Користувачі)
-| Метод  | Шлях        | Опис |
-|--------|------------|-----|
-| GET    | /users     | Список всіх користувачів (Admin) |
-| GET    | /users/:id | Профіль користувача |
-| PATCH  | /users/:id | Оновлення профілю користувача |
-| DELETE | /users/:id | Видалення користувача (Admin) |
+## Auth
+
+- `POST /auth/local/signup` — реєстрація користувача.
+- `POST /auth/local/signin` — вхід користувача.
+- `POST /auth/logout` — вихід користувача.
+- `POST /auth/refresh` — оновлення токена доступу.
 
 ---
 
-## 3. SurveysModule (Опитування)
-| Метод  | Шлях           | Опис |
-|--------|----------------|-----|
-| POST   | /surveys       | Створити опитування (Admin) |
-| GET    | /surveys       | Список опитувань |
-| GET    | /surveys/:id   | Деталі опитування |
-| PATCH  | /surveys/:id   | Оновити опитування (Admin) |
-| DELETE | /surveys/:id   | Видалити опитування (Admin) |
+## Surveys
+
+- `GET /surveys` — повертає всі опитування поточного користувача.
+- `GET /surveys/:id` — повертає одне опитування по ID.
+- `POST /surveys` — створює нове опитування.
+- `PATCH /surveys/:id` — оновлює існуюче опитування.
+- `DELETE /surveys/:id` — видаляє опитування.
 
 ---
 
-## 4. QuestionsModule (Питання)
-| Метод  | Шлях                             | Опис |
-|--------|---------------------------------|-----|
-| POST   | /surveys/:surveyId/questions    | Додати питання до опитування |
-| GET    | /surveys/:surveyId/questions    | Отримати всі питання опитування |
-| PATCH  | /questions/:id                  | Оновити питання |
-| DELETE | /questions/:id                  | Видалити питання |
+## Questions
+
+- `GET /surveys/:surveyId/questions` — повертає всі питання опитування.
+- `POST /surveys/:surveyId/questions` — створює нове питання.
+- `PATCH /questions/:id` — оновлює питання.
+- `DELETE /questions/:id` — видаляє питання.
 
 ---
 
-## 5. ResponsesModule (Відповіді)
-| Метод  | Шлях                             | Опис |
-|--------|---------------------------------|-----|
-| POST   | /surveys/:surveyId/responses    | Відповісти на опитування |
-| GET    | /surveys/:surveyId/responses    | Отримати всі відповіді (Admin) |
-| GET    | /responses/:id                  | Деталі конкретної відповіді |
-| DELETE | /responses/:id                  | Видалити відповідь |
+## Responses
 
----
-
-## 6. Optional: AnalyticsModule (Статистика)
-| Метод | Шлях                      | Опис |
-|-------|---------------------------|-----|
-| GET   | /surveys/:surveyId/stats  | Статистика по опитуванню (кількість відповідей, розподіл по варіантах тощо) |
+- `GET /questions/:questionId/responses` — повертає всі відповіді на питання.
+- `POST /questions/:questionId/responses` — створює нову відповідь.
+- `PATCH /questions/:questionId/responses/:responseId` — оновлення відповіді (не дозволено, можна видаляти).
+- `DELETE /questions/:questionId/responses/:responseId` — видаляє відповідь.
